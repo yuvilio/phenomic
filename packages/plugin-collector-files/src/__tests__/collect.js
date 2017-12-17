@@ -4,7 +4,7 @@ import plugin from "..";
 
 import fixtures from "./__fixtures__";
 
-it("should collect stuff", () => {
+it("should collect stuff", async () => {
   db.destroy();
 
   const p = plugin();
@@ -12,5 +12,7 @@ it("should collect stuff", () => {
     p.collect(db, path, fixtures[path]);
   });
 
-  expect(db.getDatabase()).toMatchSnapshot();
+  expect(await db.getList("__null__")).toMatchSnapshot();
+  expect(await db.getList("news/2017")).toMatchSnapshot();
+  expect(await db.getList("showcaseTags")).toMatchSnapshot();
 });
